@@ -1,3 +1,9 @@
+/****************************************************************************
+*
+* Copyright (C) 2019-2026 MiaoQingrui. All rights reserved.
+* Author: 缪庆瑞 <justdoit_mqr@163.com>
+*
+****************************************************************************/
 /*
  *@author: 缪庆瑞
  *@date:   2019.8.26
@@ -20,10 +26,8 @@ BaseTableWidget::BaseTableWidget(int row,int column,QWidget *parent) :
 }
 /*
  *@brief:   设置item文本
- *@author:  缪庆瑞
  *@date:    2019.8.26
- *@param:   row:指定行
- *@param:   column:指定列
+ *@param:   row:指定行   column:指定列
  *@param:   text:设置的文本
  *@param:   alignment:文本居中方式,默认居中
  */
@@ -47,10 +51,8 @@ void BaseTableWidget::setItemText(int row, int column, QString text,int alignmen
 }
 /*
  *@brief:   获取item显示的文本
- *@author:  缪庆瑞
  *@date:    2020.06.01
- *@param:   row:指定行
- *@param:   column:指定列
+ *@param:   row:指定行   column:指定列
  *@return:  QString:显示的文本,item不存在则返回空串
  */
 QString BaseTableWidget::getItemText(int row, int column)
@@ -65,10 +67,8 @@ QString BaseTableWidget::getItemText(int row, int column)
 }
 /*
  *@brief:   设置item图标
- *@author:  缪庆瑞
  *@date:    2022.9.2
- *@param:   row:指定行
- *@param:   column:指定列
+ *@param:   row:指定行   column:指定列
  *@param:   icon:设置的图标
  */
 void BaseTableWidget::setItemIcon(int row, int column, QIcon &icon)
@@ -89,10 +89,8 @@ void BaseTableWidget::setItemIcon(int row, int column, QIcon &icon)
 }
 /*
  *@brief:   设置item部件
- *@author:  缪庆瑞
  *@date:    2019.8.26
- *@param:   row:指定行
- *@param:   column:指定列
+ *@param:   row:指定行   column:指定列
  *@param:   widget:设置的小部件
  *@param:   isCenteredLayout:是否对小部件设置居中布局，默认为false
  */
@@ -119,12 +117,10 @@ void BaseTableWidget::setItemWidget(int row, int column, QWidget *widget, bool i
 }
 /*
  *@brief:   获取item部件
- *@author:  缪庆瑞
  *@date:    2019.9.3
- *@param:   row:指定行
- *@param:   column:指定列
+ *@param:   row:指定行   column:指定列
  *@param:   isCenteredLayout:小部件是否设置了居中布局，默认为false
- *@return:   如果单元格存放控件返回指定控件,否则返回NULL
+ *@return:  如果单元格存放控件返回指定控件,否则返回NULL
  */
 QWidget *BaseTableWidget::getItemWidget(int row, int column, bool isCenteredLayout)
 {
@@ -155,10 +151,8 @@ QWidget *BaseTableWidget::getItemWidget(int row, int column, bool isCenteredLayo
 }
 /*
  *@brief:   设置item指定角色对应的数据
- *@author:  缪庆瑞
  *@date:    2020.05.29
- *@param:   row:指定行
- *@param:   column:指定列
+ *@param:   row:指定行   column:指定列
  *@param:   variant:数据,支持Qt常用的大多数类型
  *@param:   role:指定角色，默认为UserRole,由开发者自行决定用途。
  *Qt自带了很多角色，QTableWidgetItem的很多接口，其实内部就是通过setData()设置固定角色数据实现的
@@ -180,10 +174,8 @@ void BaseTableWidget::setItemData(int row, int column, QVariant variant, int rol
 }
 /*
  *@brief:   获取item指定角色对应的数据
- *@author:  缪庆瑞
  *@date:    2020.05.29
- *@param:   row:指定行
- *@param:   column:指定列
+ *@param:   row:指定行   column:指定列
  *@param:   role:指定角色，默认为UserRole,由开发者自行决定用途
  *@return:   QVariant:如果item不存在,返回无效的QVariant
  */
@@ -199,7 +191,6 @@ QVariant BaseTableWidget::getItemData(int row, int column, int role)
 }
 /*
  *@brief:   设置某列的所有行自动编号
- *@author:  缪庆瑞
  *@date:    2022.9.2
  *@param:   column:列号
  *@param:   firstNumber:初始编号，默认为1
@@ -215,7 +206,6 @@ void BaseTableWidget::setColumnAutoNumber(int column, int firstNumber)
 /*
  *@brief:   设置列宽和行高,这里是通过表头设置的,所有行列都一致
  * 注:表格的列宽和行高不会自动随着布局调整，所以需要手动设置
- *@author:  缪庆瑞
  *@date:    2019.8.26
  *@param:   columnWidth:列宽
  *@param:   rowHeight:行高
@@ -235,7 +225,6 @@ void BaseTableWidget::setColWidthRowHeight(int columnWidth, int rowHeight)
  * 设置滚动条的大小和位置，使其悬浮在表格内容的右侧
  * 注2:滚动条悬浮会设置Qt::ScrollBarAlwaysOff关闭原始的布局空间占用，如果需要让滚动条按需显
  * 示则可以设置该方法的第三个参数为true，内部处理会根据滚动条的范围变化自动显示/隐藏。
- *@author:  缪庆瑞
  *@date:    2020.08.13
  *@param:   verScrollBarActualWidth:滚动条的实际宽度(固定宽度是为了后面自动调整位置)
  *@param:   verScrollBarVisibleWidth:滚动条可见区域宽度(从视觉上让滚动条看起来比实际窄一些)
@@ -266,7 +255,6 @@ void BaseTableWidget::setVerScrollBarSuspension(int verScrollBarActualWidth,
 /*
  *@brief:   部件大小调整事件处理
  * 注：通常在部件尺寸改变以及第一次显示时被自动调用
- *@author:  缪庆瑞
  *@date:    2020.08.13
  *@param:   event:大小事件
  */
@@ -283,7 +271,6 @@ void BaseTableWidget::resizeEvent(QResizeEvent *event)
 /*
  *@brief:   初始化设置表格的一些默认属性
  *这里可根据项目表格的统一风格进行自由设定，特例化在类外单独调用QTableWidget的接口即可
- *@author:  缪庆瑞
  *@date:    2019.08.26
  */
 void BaseTableWidget::initTableProperty()
@@ -303,7 +290,6 @@ void BaseTableWidget::initTableProperty()
 /*
  *@brief:   表格垂直滚动条范围改变信号响应槽
  * 该槽主要用来根据范围自动显示/隐藏滚动条
- *@author:  缪庆瑞
  *@date:    2020.11.04
  *@param:   min:最小值
  *@param:   max:最大值

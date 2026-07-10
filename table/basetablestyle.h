@@ -1,3 +1,9 @@
+/****************************************************************************
+*
+* Copyright (C) 2020-2026 MiaoQingrui. All rights reserved.
+* Author: 缪庆瑞 <justdoit_mqr@163.com>
+*
+****************************************************************************/
 /*
  *@author:  缪庆瑞
  *@date:    2020.08.13
@@ -22,9 +28,9 @@ QHeaderView::section{\
 border-style:none;color:white;background-color:#2d76b6;\
 border-top-left-radius:8px;border-top-right-radius:8px;}\
 QHeaderView::up-arrow{\
-width:15px;right:20px;image: url(:/resource/icons/pairs/order_asc.png);}\
+width:15px;right:20px;image: url(:/images/pairs/order_asc.png);}\
 QHeaderView::down-arrow{\
-width:15px;right:20px;image: url(:/resource/icons/pairs/order_desc.png);}"*/
+width:15px;right:20px;image: url(:/images/pairs/order_desc.png);}"*/
 
 //2.不显示右侧滚动条区域的水平表头样式
 #define BASETABLE_H_HEADER_STYLE "QHeaderView{\
@@ -34,9 +40,9 @@ QHeaderView::section{\
 border-style:none;color:white;background-color:#2d76b6;\
 border-top-left-radius:8px;border-top-right-radius:8px;}\
 QHeaderView::up-arrow{\
-width:15px;right:20px;image: url(:/resource/icons/pairs/order_asc.png);}\
+width:15px;right:20px;image: url(:/images/pairs/order_asc.png);}\
 QHeaderView::down-arrow{\
-width:15px;right:20px;image: url(:/resource/icons/pairs/order_desc.png);}"
+width:15px;right:20px;image: url(:/images/pairs/order_desc.png);}"
 
 
 /* 表格-垂直滚动条样式

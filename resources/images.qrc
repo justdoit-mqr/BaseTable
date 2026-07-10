@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/pairs/checked.png</file>
+        <file>images/pairs/loved.png</file>
+        <file>images/pairs/loving.png</file>
+        <file>images/pairs/order_asc.png</file>
+        <file>images/pairs/order_desc.png</file>
+        <file>images/pairs/unchecked.png</file>
+    </qresource>
+</RCC>

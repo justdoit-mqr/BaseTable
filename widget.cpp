@@ -1,3 +1,9 @@
+/****************************************************************************
+*
+* Copyright (C) 2022-2026 MiaoQingrui. All rights reserved.
+* Author: 缪庆瑞 <justdoit_mqr@163.com>
+*
+****************************************************************************/
 /*
  *@author:  缪庆瑞
  *@date:    2022.09.02
@@ -125,8 +131,8 @@ void Widget::initSongsTableWidget()
     batchCheckBtn->setCheckable(true);
     QIcon icon;
     QSize iconSize = QSize(26,26);
-    icon.addFile(":/resource/icons/pairs/unchecked.png",iconSize,QIcon::Normal,QIcon::Off);
-    icon.addFile(":/resource/icons/pairs/checked.png",iconSize,QIcon::Normal,QIcon::On);
+    icon.addFile(":/images/pairs/unchecked.png",iconSize,QIcon::Normal,QIcon::Off);
+    icon.addFile(":/images/pairs/checked.png",iconSize,QIcon::Normal,QIcon::On);
     batchCheckBtn->setIcon(icon);
     batchCheckBtn->setIconSize(iconSize);
     batchCheckBtn->setStyleSheet("border-style:none;");

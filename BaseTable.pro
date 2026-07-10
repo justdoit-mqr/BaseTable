@@ -11,16 +11,16 @@ CONFIG += c++11
 INCLUDEPATH += table/
 
 SOURCES += \
-    basetabledelegate.cpp \
     main.cpp \
     songstabledelegate.cpp \
+    table/basetabledelegate.cpp \
     table/basetablewidget.cpp \
     table/customheaderview.cpp \
     widget.cpp
 
 HEADERS += \
-    basetabledelegate.h \
     songstabledelegate.h \
+    table/basetabledelegate.h \
     table/basetablestyle.h \
     table/basetablewidget.h \
     table/customheaderview.h \
@@ -35,4 +35,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    basetable.qrc
+    resources/images.qrc

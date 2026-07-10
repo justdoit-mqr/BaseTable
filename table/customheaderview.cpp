@@ -1,3 +1,9 @@
+/****************************************************************************
+*
+* Copyright (C) 2020-2026 MiaoQingrui. All rights reserved.
+* Author: 缪庆瑞 <justdoit_mqr@163.com>
+*
+****************************************************************************/
 /*
  *@author:  缪庆瑞
  *@date:    2020.09.10
@@ -13,7 +19,6 @@ CustomHeaderView::CustomHeaderView(Qt::Orientation orientation, QWidget *parent)
 }
 /*
  *@brief:   设置表头控件
- *@author:  缪庆瑞
  *@date:    2020.09.10
  *@param:   widget:控件指针
  *@param:   logicalIndex:控件所在表项的逻辑索引
@@ -29,7 +34,6 @@ void CustomHeaderView::setHeaderViewWidget(QWidget *widget, int logicalIndex)
 /*
  *@brief:   设置表项隐藏/显示
  * 注:该函数在基类并没有声明为虚函数，所以这里重写之后需要使用派生类对象直接调用才有效
- *@author:  缪庆瑞
  *@date:    2020.09.10
  *@param:   logicalIndex:表项的逻辑索引
  *@param:   hide:true=隐藏  false=显示
@@ -48,7 +52,6 @@ void CustomHeaderView::setSectionHidden(int logicalIndex, bool hide)
 /*
  *@brief:   绘制表项
  * 注1:该函数在QHeaderView类中是const成员函数，派生类重写该虚函数时要保留const，否则基类不会调用
- *@author:  缪庆瑞
  *@date:    2020.09.10
  *@param:   painter:绘图设备
  *@param:   rect:对应表项所在的矩形
@@ -59,10 +62,23 @@ void CustomHeaderView::paintSection(QPainter *painter, const QRect &rect, int lo
     //先调用父类函数实现默认功能
     QHeaderView::paintSection(painter, rect, logicalIndex);
     //如果该索引下设置了控件，则将控件位置设置到表项所在矩形内
-    if(headerViewWidgetMap.contains(logicalIndex) &&
-            headerViewWidgetMap.value(logicalIndex) != NULL)
+    if(headerViewWidgetMap.contains(logicalIndex))
     {
-        headerViewWidgetMap.value(logicalIndex)->setGeometry(rect);
-        headerViewWidgetMap.value(logicalIndex)->setVisible(true);
+        QWidget *widget = headerViewWidgetMap.value(logicalIndex);
+        if(widget)
+        {
+            //如果固定大小，则保持居中
+            if(widget->minimumSize() == widget->maximumSize())
+            {
+                QSize tmp_size = rect.size() - widget->size();
+                widget->move(tmp_size.width()/2,tmp_size.height()/2);
+            }
+            //没有固定大小，则将部件设置平铺在表项区域
+            else
+            {
+                widget->setGeometry(rect);
+            }
+            widget->setVisible(true);
+        }
     }
 }

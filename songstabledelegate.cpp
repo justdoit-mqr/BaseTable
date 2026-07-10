@@ -1,3 +1,9 @@
+/****************************************************************************
+*
+* Copyright (C) 2022-2026 MiaoQingrui. All rights reserved.
+* Author: 缪庆瑞 <justdoit_mqr@163.com>
+*
+****************************************************************************/
 /*
  *@author:  缪庆瑞
  *@date:    2022.9.3
@@ -9,20 +15,19 @@
 SongsTableDelegate::SongsTableDelegate(QObject *parent):
     QStyledItemDelegate(parent)
 {
-    uncheckedPixmap.load(":/resource/icons/pairs/unchecked.png");
+    uncheckedPixmap.load(":/images/pairs/unchecked.png");
     uncheckedPixmap = uncheckedPixmap.scaled(QSize(26,26),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
-    checkedPixmap.load(":/resource/icons/pairs/checked.png");
+    checkedPixmap.load(":/images/pairs/checked.png");
     checkedPixmap = checkedPixmap.scaled(QSize(26,26),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
 
-    lovingPixmap.load(":/resource/icons/pairs/loving.png");
+    lovingPixmap.load(":/images/pairs/loving.png");
     lovingPixmap = lovingPixmap.scaled(QSize(26,26),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
-    lovedPixmap.load(":/resource/icons/pairs/loved.png");
+    lovedPixmap.load(":/images/pairs/loved.png");
     lovedPixmap = lovedPixmap.scaled(QSize(26,26),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
 }
 /*
  *@brief:   绘制渲染view item(表项)外观,可以调用QStyle中的函数绘制，也可以使用QPainter的函数绘制
  * 注意:该方法调用的频次比较高,任何可显示item发生变化都会调用该函数,所以内部处理一定要简练
- *@author:  缪庆瑞
  *@date:    2022.9.3
  *@param:   painter:绘图设备
  *@param:   option:包含使用QStyle画item的所有信息

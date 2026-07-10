@@ -1,7 +1,13 @@
+/****************************************************************************
+*
+* Copyright (C) 2022-2026 MiaoQingrui. All rights reserved.
+* Author: 缪庆瑞 <justdoit_mqr@163.com>
+*
+****************************************************************************/
 /*
- *@file:   basetabledelegate.cpp
  *@author: 缪庆瑞
  *@date:   2022.9.3
+ *@brief:  表格委托类
  */
 #include "basetabledelegate.h"
 #include <QDebug>
@@ -19,7 +25,6 @@ BasetableDelegate::~BasetableDelegate()
 #ifdef USE_CUSTOM_EDITOR
 /*
  *@brief:   创建编辑器,重写该方法取代view的默认编辑器
- *@author:  缪庆瑞
  *@date:    2022.9.3
  *@param:   parent:编辑器的父部件
  *@param:   option:包含使用QStyle画item的所有信息，在该方法中一般用不到
@@ -46,7 +51,6 @@ QWidget *BasetableDelegate::createEditor(QWidget *parent,
 }
 /*
  *@brief:   从model中取数据填到代理编辑器中
- *@author:  缪庆瑞
  *@date:    2022.9.3
  *@param:   editor:代理编辑器
  *@param:   index:模型/视图数据索引
@@ -55,8 +59,7 @@ void BasetableDelegate::setEditorData(QWidget *editor, const QModelIndex &index)
 {
     qDebug()<<"set editor "<<index.row()<<index.column();
     /*因为该函数与createEditor等是一组不可分割的函数，所以需要使用相同的判断条件同步
-     *使用自定义的代理编辑器或者默认的代理编辑器。
-     */
+     *使用自定义的代理编辑器或者默认的代理编辑器。*/
     if(isNeedCustomEdit(index))
     {
         //将edit转换成上面创建的类型
@@ -75,7 +78,6 @@ void BasetableDelegate::setEditorData(QWidget *editor, const QModelIndex &index)
 }
 /*
  *@brief:   将编辑器设置的数据写入到model中
- *@author:  缪庆瑞
  *@date:    2022.9.3
  *@param:   editor:代理编辑器
  *@param:   model:item model
@@ -86,8 +88,7 @@ void BasetableDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 {
     qDebug()<<"set model "<<index.row()<<index.column();
     /*因为该函数与createEditor等是一组不可分割的函数，所以需要使用相同的判断条件同步
-     *使用自定义的代理编辑器或者默认的代理编辑器。
-     */
+     *使用自定义的代理编辑器或者默认的代理编辑器。*/
     if(isNeedCustomEdit(index))
     {
         //将edit转换成上面创建的类型
@@ -109,7 +110,6 @@ void BasetableDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 }
 /*
  *@brief:   设置编辑器的显示位置以及样式
- *@author:  缪庆瑞
  *@date:    2022.9.3
  *@param:   editor:代理编辑器
  *@param:   option:包含使用QStyle画item的所有信息
@@ -120,8 +120,7 @@ void BasetableDelegate::updateEditorGeometry(QWidget *editor,
 {
     //qDebug()<<"updateEditorGeometry "<<index.row()<<index.column();
     /*因为该函数与createEditor等是一组不可分割的函数，所以需要使用相同的判断条件同步
-     *使用自定义的代理编辑器或者默认的代理编辑器。
-     */
+     *使用自定义的代理编辑器或者默认的代理编辑器。*/
     if(isNeedCustomEdit(index))
     {
         //设置编辑器的大小和位置
@@ -140,7 +139,6 @@ void BasetableDelegate::updateEditorGeometry(QWidget *editor,
  *@brief:   判断表项是否需要自定义代理编辑器
  * 由于重写的那几个编辑器相关的函数都是const 成员函数，不能修改成员数据，也不能调用
  * 非const成员函数，所以该函数必须定义成const类型
- *@author:  缪庆瑞
  *@date:    2022.9.3
  *@param:   index:模型/视图数据索引
  *@return:  true=需要　　false=不需要
@@ -161,7 +159,6 @@ bool BasetableDelegate::isNeedCustomEdit(const QModelIndex &index) const
 /*
  *@brief:   绘制渲染view item(表项)外观,该方法调用的频次比较高,任何item发送变化等会调用该函数
  * 注意如果表项上设置了cellWidget,那么绘制时会在部件的后面绘制
- *@author:  缪庆瑞
  *@date:    2022.9.3
  *@param:   painter:绘图设备
  *@param:   option:包含使用QStyle画item的所有信息
@@ -217,7 +214,6 @@ void BasetableDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt
  *@brief:   判断表项是否需要自定义代理绘制
  * 由于重写的paint()是const 成员函数,不能修改成员数据,也不能调用非const成员函数,
  * 所以该函数必须定义成const类型
- *@author:  缪庆瑞
  *@date:    2022.9.3
  *@param:   index:模型/视图数据索引
  *@return:  true=需要　　false=不需要
@@ -234,5 +230,3 @@ bool BasetableDelegate::isNeedCustomPainter(const QModelIndex &index) const
     }
 }
 #endif
-
-
