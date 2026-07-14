@@ -11,6 +11,7 @@
  */
 #include "widget.h"
 #include "ui_widget.h"
+#include "songstabledelegate.h"
 #include <QFile>
 
 Widget::Widget(QWidget *parent)
@@ -87,31 +88,21 @@ void Widget::songsTableCellClickedSlot(int row, int column)
 //初始化歌曲表格
 void Widget::initSongsTableWidget()
 {
+    /*0.设置表格行列数，关联信号*/
     ui->songsTableWidget->setRowCount(10);
     ui->songsTableWidget->setColumnCount(7);
-    /******设置表格属性******/
+    connect(ui->songsTableWidget,SIGNAL(cellClicked(int,int)),this,SLOT(songsTableCellClickedSlot(int,int)));
+
+    /*1.设置表格属性*/
     ui->songsTableWidget->setAlternatingRowColors(true);//启用交替行颜色
     ui->songsTableWidget->setStyleSheet(BASETABLE_STYLE);//设置表格样式表
     //ui->songsTableWidget->setShowGrid(true);//显示网格线
-    //为表格部件安装委托
-    songsTableDelegate = new SongsTableDelegate(this);
-    ui->songsTableWidget->setItemDelegate(songsTableDelegate);
-    //为表格部件设置自定义水平表头
+    ui->songsTableWidget->setVerScrollBarSuspension();//设置垂直滚动条悬浮功能
+    ui->songsTableWidget->enableTableGestureScroll();//使能表格滚动
+
+    /*2.设置表格自定义水平表头*/
     songsTableHeaderView = new CustomHeaderView(Qt::Horizontal,this);
     ui->songsTableWidget->setHorizontalHeader(songsTableHeaderView);
-    //设置表格列宽
-    ui->songsTableWidget->setColumnWidth(0,50);//编号
-    ui->songsTableWidget->setColumnWidth(1,60);//批量选择/未选择
-    ui->songsTableWidget->setColumnWidth(2,320);//歌曲名称
-    ui->songsTableWidget->setColumnWidth(3,120);//歌手
-    ui->songsTableWidget->setColumnWidth(4,120);//时长
-    ui->songsTableWidget->setColumnWidth(5,60);//喜欢
-    //设置表格行高
-    ui->songsTableWidget->verticalHeader()->setDefaultSectionSize(50);//设置行高
-    connect(ui->songsTableWidget,SIGNAL(cellClicked(int,int)),this,SLOT(songsTableCellClickedSlot(int,int)));
-    /******设置滚动条属性******/
-    ui->songsTableWidget->setVerScrollBarSuspension();//设置垂直滚动条悬浮功能
-    /*******设置水平表头属性*******/
     currentSortColumn = 2,
     currentSortOrder = Qt::AscendingOrder;
     songsTableHeaderView->setVisible(true);//显示水平表头
@@ -126,7 +117,7 @@ void Widget::initSongsTableWidget()
     songsTableHeaderView->setStretchLastSection(true);//最后一列自适应大小,避免因列宽偏差导致最后一列出问题(留空或超长)
     songsTableHeaderView->setStyleSheet(BASETABLE_H_HEADER_STYLE);//水平表头样式
     //给水平表头的批量选择列项添加一个‘全选/全不选’按钮
-    batchCheckBtn = new QToolButton(songsTableHeaderView);
+    QToolButton *batchCheckBtn = new QToolButton(songsTableHeaderView);
     batchCheckBtn->setFixedSize(60,46);//固定大小与表头section相同
     batchCheckBtn->setCheckable(true);
     QIcon icon;
@@ -139,6 +130,17 @@ void Widget::initSongsTableWidget()
     connect(batchCheckBtn,SIGNAL(clicked(bool)),this,SLOT(batchCheckBtnSlot(bool)));
     songsTableHeaderView->setHeaderViewWidget(batchCheckBtn,SongsTableDelegate::BATCH_CHECK_COL);
     connect(songsTableHeaderView,SIGNAL(sectionClicked(int)),this,SLOT(songsTableHeaderClickedSlot(int)));
+    /*3.设置表格行高列宽*/
+    ui->songsTableWidget->verticalHeader()->setDefaultSectionSize(50);//设置行高
+    ui->songsTableWidget->setColumnWidth(0,50);//编号
+    ui->songsTableWidget->setColumnWidth(1,60);//批量选择/未选择
+    ui->songsTableWidget->setColumnWidth(2,320);//歌曲名称
+    ui->songsTableWidget->setColumnWidth(3,120);//歌手
+    ui->songsTableWidget->setColumnWidth(4,120);//时长
+    ui->songsTableWidget->setColumnWidth(5,60);//喜欢
+    /*4.为表格部件安装自定义委托*/
+    SongsTableDelegate *songsTableDelegate = new SongsTableDelegate(this);
+    ui->songsTableWidget->setItemDelegate(songsTableDelegate);
 }
 //刷新静态文本
 void Widget::refreshSongsTableText()

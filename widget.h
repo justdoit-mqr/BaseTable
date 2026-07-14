@@ -15,7 +15,6 @@
 #include <QWidget>
 #include <QToolButton>
 #include "table/customheaderview.h"
-#include "songstabledelegate.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -44,8 +43,6 @@ private:
 
     Ui::Widget *ui;
     CustomHeaderView *songsTableHeaderView;//表头
-    SongsTableDelegate *songsTableDelegate;//委托
-    QToolButton *batchCheckBtn;//批量选择按钮
     int currentSortColumn;//当前排序列
     Qt::SortOrder currentSortOrder;//当前升降顺序
 };

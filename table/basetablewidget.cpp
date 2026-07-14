@@ -253,6 +253,18 @@ void BaseTableWidget::setVerScrollBarSuspension(int verScrollBarActualWidth,
     }
 }
 /*
+ *@brief:   使能表格手势滚动
+ *内部主要使用QScroller的grabGesture在指定组件上注册手势
+ *@date:    2026.07.14
+ *@param:   mode:滚动模式，支持item模式和像素模式，默认像素模式
+ *@param:   gestureType:手势类型 默认鼠标左键
+ */
+void BaseTableWidget::enableTableGestureScroll(ScrollMode mode, QScroller::ScrollerGestureType gestureType)
+{
+    this->setVerticalScrollMode(mode);
+    QScroller::grabGesture(this->viewport(),gestureType);
+}
+/*
  *@brief:   部件大小调整事件处理
  * 注：通常在部件尺寸改变以及第一次显示时被自动调用
  *@date:    2020.08.13
