@@ -71,7 +71,7 @@ void CustomHeaderView::paintSection(QPainter *painter, const QRect &rect, int lo
             if(widget->minimumSize() == widget->maximumSize())
             {
                 QSize tmp_size = rect.size() - widget->size();
-                widget->move(tmp_size.width()/2,tmp_size.height()/2);
+                widget->move(rect.x() + tmp_size.width()/2,rect.y() + tmp_size.height()/2);
             }
             //没有固定大小，则将部件设置平铺在表项区域
             else
