@@ -23,6 +23,11 @@
     void setVerScrollBarSuspension(int verScrollBarActualWidth=56,
                                    int verScrollBarVisibleWidth=9,
                                    bool verScrollBarAsNeeded=false);
+    //设置表格手势滚动及滚动属性参数
+    void setTableGestureScroll(bool enable = true,
+                               QAbstractItemView::ScrollMode mode = QAbstractItemView::ScrollPerPixel,
+                               QScroller::ScrollerGestureType gestureType = QScroller::LeftMouseButtonGesture);
+    void setTableScrollerProperties(const QScrollerProperties &scrollerProperties);
 ```
 ## 项目例程：
 该项目除了上面提到的BaseTableWidget以及相关基础组件外，还提供了委托类SongsTableDelegate用来自定义表格外观渲染以及BasetableDelegate展示委托类的编码流程，widget类则提供了一整套常见表格功能的设计方法。  

@@ -49,9 +49,12 @@ public:
     //设置表格垂直滚动条悬浮显示
     void setVerScrollBarSuspension(int verScrollBarActualWidth=56,
                                    int verScrollBarVisibleWidth=9,bool verScrollBarAsNeeded=false);
-    //使能表格手势滚动
-    void enableTableGestureScroll(ScrollMode mode = ScrollPerPixel,
-                                  QScroller::ScrollerGestureType gestureType = QScroller::LeftMouseButtonGesture);
+    //设置表格手势滚动及滚动属性参数
+    void setTableGestureScroll(bool enable = true,
+                               QAbstractItemView::ScrollMode mode = QAbstractItemView::ScrollPerPixel,
+                               QScroller::ScrollerGestureType gestureType = QScroller::LeftMouseButtonGesture);
+    void setTableScrollerProperties(const QScrollerProperties &scrollerProperties);
+
 
 protected:
     virtual void resizeEvent(QResizeEvent *event);

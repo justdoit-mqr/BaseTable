@@ -21,7 +21,7 @@
  * QHeaderView::section:last 控制表头的最后一个表项
 */
 //1.显示右侧滚动条区域的水平表头样式
-/*#define BASETABLE_H_HEADER_STYLE "QHeaderView{\
+#define BASETABLE_H_HEADER_STYLE1 "QHeaderView{\
 border-top-left-radius:8px;\
 background-color:#2d76b6;min-height:46px;max-height:46px;}\
 QHeaderView::section{\
@@ -30,10 +30,10 @@ border-top-left-radius:8px;border-top-right-radius:8px;}\
 QHeaderView::up-arrow{\
 width:15px;right:20px;image: url(:/images/pairs/order_asc.png);}\
 QHeaderView::down-arrow{\
-width:15px;right:20px;image: url(:/images/pairs/order_desc.png);}"*/
+width:15px;right:20px;image: url(:/images/pairs/order_desc.png);}"
 
 //2.不显示右侧滚动条区域的水平表头样式
-#define BASETABLE_H_HEADER_STYLE "QHeaderView{\
+#define BASETABLE_H_HEADER_STYLE2 "QHeaderView{\
 border-top-left-radius:8px;border-top-right-radius:8px;\
 background-color:#2d76b6;min-height:46px;max-height:46px;}\
 QHeaderView::section{\
@@ -46,7 +46,7 @@ width:15px;right:20px;image: url(:/images/pairs/order_desc.png);}"
 
 
 /* 表格-垂直滚动条样式
- * QScrollBar::vertical：滑块垂直移动的槽
+ * QScrollBar:vertical：滑块垂直移动的槽
  *          width:控制槽的宽度
  *          margin:可用来为上下两个按钮设置空间
  * QScrollBar::handle:vertical：垂直滑块
@@ -61,11 +61,11 @@ width:15px;right:20px;image: url(:/images/pairs/order_desc.png);}"
  * QScrollBar::add-page:vertical,::sub-page:vertical：滑块槽内的上下翻页按钮
  */
 //1.显示在右侧滚动条区域的垂直滚动条样式
-/*#define BASETABLE_V_SCROLLBAR_STYLE "QScrollBar:vertical{\
-width: 36px;margin:46px 0px -1px 0px;background:transparent;\
+#define BASETABLE_V_SCROLLBAR_STYLE1 "QScrollBar:vertical{\
+width: 12px;margin:46px 0px -1px 0px;background:transparent;\
 border-bottom:1px solid #dee1e1;border-bottom-right-radius:6px;}\
 QScrollBar::handle:vertical{\
-border-radius:2px;margin:2px 1px 2px 29px;\
+border-radius:2px;margin:2px 2px 2px 2px;\
 background:#2d76b6;min-height:60px;}\
 QScrollBar::sub-line:vertical {\
 border-top-right-radius:8px;background-color:#2d76b6;\
@@ -73,9 +73,9 @@ height:46px;subcontrol-origin:margin;}\
 QScrollBar::add-line:vertical {\
 height:0px;subcontrol-origin:margin;}\
 QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{\
-background:none;}"*/
-//2.不显示在右侧滚动条区域的垂直滚动条样式(内部使用了一个%参数，用来控制滚动条左侧margin)
-#define BASETABLE_V_SCROLLBAR_STYLE "QScrollBar:vertical{\
+background:none;}"
+//2.不显示在右侧滚动条区域的(悬浮)垂直滚动条样式(内部使用了一个%参数，用来控制滚动条左侧margin)
+#define BASETABLE_V_SCROLLBAR_STYLE2 "QScrollBar:vertical{\
 margin:46px 0px 2px 0px;background:transparent;}\
 QScrollBar::handle:vertical{\
 border-radius:2px;margin:2px 1px 2px %1px;\
@@ -85,6 +85,36 @@ height:46px;subcontrol-origin:margin;background:none;}\
 QScrollBar::add-line:vertical {\
 height:2px;subcontrol-origin:margin;background:none;}\
 QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{\
+background:none;}"
+
+
+
+/* 表格-水平滚动条样式
+ * QScrollBar:horizontal：滑块水平移动的槽
+ *          height:控制槽的高度
+ *          margin:可用来为左右两个按钮设置空间
+ * QScrollBar::handle:horizontal：水平滑块
+ *          高度可以由horizontal的height和padding控制
+ *          min-width表示最小宽度
+ * QScrollBar::sub-line,add-line:horizontal：左右两个子控件按钮
+ *          width:控制按钮宽度，一般使用subcontrol-origin指定的空间
+ *          subcontrol-origin:margin表明子控件放在上面指定的margin空间里
+ * QScrollBar::up-arrow,down-arrow:horizontal：子控件按钮中的箭头,默认只是一个矩形部件
+ *          height,width:可控制箭头部件的宽高
+ *          border-image:用来设置箭头图片
+ * QScrollBar::add-page:horizontal,::sub-page:horizontal：滑块槽内的上下翻页按钮
+ */
+//水平滚动条样式
+#define BASETABLE_H_SCROLLBAR_STYLE "QScrollBar:horizontal{\
+height: 14px;margin:0px 0px 0px 0px;background:transparent;}\
+QScrollBar::handle:horizontal{\
+border-radius:2px;margin:3px 2px 3px 2px;\
+background:#2d76b6;min-width:60px;}\
+QScrollBar::sub-line:horizontal {\
+width:0px;subcontrol-origin:margin;}\
+QScrollBar::add-line:horizontal {\
+width:0px;subcontrol-origin:margin;}\
+QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal{\
 background:none;}"
 
 /* 表格部件样式

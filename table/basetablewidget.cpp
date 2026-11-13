@@ -204,8 +204,7 @@ void BaseTableWidget::setColumnAutoNumber(int column, int firstNumber)
     }
 }
 /*
- *@brief:   设置列宽和行高,这里是通过表头设置的,所有行列都一致
- * 注:表格的列宽和行高不会自动随着布局调整，所以需要手动设置
+ *@brief:   设置表格默认的列宽和行高(主要针对ResizeMode为Fixed和Interactive)
  *@date:    2019.8.26
  *@param:   columnWidth:列宽
  *@param:   rowHeight:行高
@@ -237,7 +236,7 @@ void BaseTableWidget::setVerScrollBarSuspension(int verScrollBarActualWidth,
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//关闭垂直滚动条的布局空间占用
     this->verticalScrollBar()->setFixedWidth(verScrollBarActualWidth);
     this->verticalScrollBar()->setParent(this);
-    this->verticalScrollBar()->setStyleSheet(QString(BASETABLE_V_SCROLLBAR_STYLE)
+    this->verticalScrollBar()->setStyleSheet(QString(BASETABLE_V_SCROLLBAR_STYLE2)
                                              .arg(verScrollBarActualWidth-verScrollBarVisibleWidth));//设置默认样式表
     if(verScrollBarAsNeeded)//按需显示
     {
@@ -253,16 +252,40 @@ void BaseTableWidget::setVerScrollBarSuspension(int verScrollBarActualWidth,
     }
 }
 /*
- *@brief:   使能表格手势滚动
- *内部主要使用QScroller的grabGesture在指定组件上注册手势
+ *@brief:   设置表格手势滚动功能开启/关闭
  *@date:    2026.07.14
+ *@param:   enable:true=开启(默认)   false=关闭
  *@param:   mode:滚动模式，支持item模式和像素模式，默认像素模式
- *@param:   gestureType:手势类型 默认鼠标左键
+ *@param:   gestureType:手势类型 默认基于鼠标左键事件
+ *注：对于触摸屏，Qt更推荐使用TouchGesture，但实际测试发现触摸事件会更脆弱，如果触摸芯片本身不够好，没有专门调校
+ *的算法的话，会因为触摸点的抖动、噪声等导致滚动效果变差(尤其对于水平垂直同时滚动的情况)。而这时候使用鼠标手势因为
+ *本身对触摸事件进行了简化降低反而更干净，滚动表现可能更稳定。
  */
-void BaseTableWidget::enableTableGestureScroll(ScrollMode mode, QScroller::ScrollerGestureType gestureType)
+void BaseTableWidget::setTableGestureScroll(bool enable, QAbstractItemView::ScrollMode mode,
+                                            QScroller::ScrollerGestureType gestureType)
 {
-    this->setVerticalScrollMode(mode);
-    QScroller::grabGesture(this->viewport(),gestureType);
+    if(enable)
+    {
+        this->setVerticalScrollMode(mode);
+        this->setHorizontalScrollMode(mode);
+        QScroller::grabGesture(this->viewport(),gestureType);
+    }
+    else
+    {
+        QScroller::ungrabGesture(this->viewport());
+    }
+}
+/*
+ *@brief:   设置表格手势滚动的滚动属性参数
+ *可以在main函数初始化时通过QScrollerProperties::setDefaultScrollerProperties设置全局的滚动属性参数，如果
+ *该组件需要特殊的滚动属性参数，则可以调用该接口设置。
+ *注：最佳滚动属性参数不是一成不变的，需要针对特定的平台和硬件进行测试，经过反复实验才能得到最合适的参数。
+ *@date:    2026.11.12
+ *@param:   scrollerProperties:滚动属性
+ */
+void BaseTableWidget::setTableScrollerProperties(const QScrollerProperties &scrollerProperties)
+{
+    QScroller::scroller(this->viewport())->setScrollerProperties(scrollerProperties);
 }
 /*
  *@brief:   部件大小调整事件处理
@@ -288,13 +311,11 @@ void BaseTableWidget::resizeEvent(QResizeEvent *event)
 void BaseTableWidget::initTableProperty()
 {
     this->setFocusPolicy(Qt::NoFocus);//无焦点
-    //this->setGridStyle(Qt::NoPen);//设置网格线样式
     this->setShowGrid(false);//不显示网格线
     this->verticalHeader()->setVisible(false);//隐藏垂直表头
-    this->horizontalHeader()->setVisible(false);//隐藏水平表头
     this->setEditTriggers(QAbstractItemView::NoEditTriggers);//表格不可编辑
-    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//关闭水平滚动条
-    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//关闭垂直滚动条
+    //this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//关闭水平滚动条
+    //this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//关闭垂直滚动条
     this->setSelectionMode(QAbstractItemView::SingleSelection);//设置选中的模式 单选
     this->setSelectionBehavior(QAbstractItemView::SelectRows);//设置选中的行为 整行选中
     //this->setAlternatingRowColors(true);//设置行颜色交替　需要设置样式表alternate-background-color选项
